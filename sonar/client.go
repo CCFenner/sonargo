@@ -41,8 +41,8 @@ type Client struct {
 	Webhooks                  *WebhooksService
 }
 
-func NewClient(endpoint, username, password string) (*Client, error) {
-	c := &Client{username: username, password: password, authType: basicAuth, httpClient: http.DefaultClient}
+func NewClientWithHttpClient(endpoint, username, password string, httpClient *http.Client) (*Client, error) {
+	c := &Client{username: username, password: password, authType: basicAuth, httpClient: httpClient}
 	if endpoint == "" {
 		c.SetBaseURL(defaultBaseURL)
 	} else {
@@ -80,6 +80,10 @@ func NewClient(endpoint, username, password string) (*Client, error) {
 	c.Users = &UsersService{client: c}
 	c.Webhooks = &WebhooksService{client: c}
 	return c, nil
+}
+
+func NewClient(endpoint, username, password string) (*Client, error) {
+	return NewClientWithHttpClient(endpoint, username, password, http.DefaultClient)
 }
 
 func NewClientByToken(endpoint, token string) (*Client, error) {
