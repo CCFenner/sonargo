@@ -1,8 +1,11 @@
 module sonar
 
-go 1.13
+go 1.15
+
+replace github.com/magicsong/sonargo => github.com/CCFenner/sonargo v0.0.1
 
 require (
+	github.com/CCFenner/sonargo v0.0.2
 	github.com/davecgh/go-spew v1.1.1
 	github.com/fatih/color v1.7.0 // indirect
 	github.com/google/go-querystring v1.0.0
